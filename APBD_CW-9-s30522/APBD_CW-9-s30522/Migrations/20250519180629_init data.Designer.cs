@@ -4,6 +4,7 @@ using APBD_CW_9_s30522.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace APBD_CW_9_s30522.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250519180629_init data")]
+    partial class initdata
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -135,14 +138,14 @@ namespace APBD_CW_9_s30522.Migrations
                         new
                         {
                             Id = 1,
-                            Birthdate = new DateTime(1999, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Birthdate = new DateTime(2025, 5, 19, 20, 6, 29, 8, DateTimeKind.Local).AddTicks(9215),
                             FirstName = "Adam",
                             LastName = "Psikutas"
                         },
                         new
                         {
                             Id = 2,
-                            Birthdate = new DateTime(1999, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Birthdate = new DateTime(2025, 5, 19, 20, 6, 29, 13, DateTimeKind.Local).AddTicks(3198),
                             FirstName = "Andrzej",
                             LastName = "Andrzejewski"
                         });
@@ -182,7 +185,7 @@ namespace APBD_CW_9_s30522.Migrations
                         {
                             Id = 1,
                             Date = new DateOnly(2025, 5, 19),
-                            DueDate = new DateOnly(2025, 6, 19),
+                            DueDate = new DateOnly(9999, 12, 31),
                             IdDoctor = 1,
                             IdPatient = 1
                         },
@@ -190,7 +193,7 @@ namespace APBD_CW_9_s30522.Migrations
                         {
                             Id = 2,
                             Date = new DateOnly(2025, 5, 19),
-                            DueDate = new DateOnly(2025, 6, 19),
+                            DueDate = new DateOnly(9999, 12, 31),
                             IdDoctor = 1,
                             IdPatient = 1
                         },
@@ -198,7 +201,7 @@ namespace APBD_CW_9_s30522.Migrations
                         {
                             Id = 3,
                             Date = new DateOnly(2025, 5, 19),
-                            DueDate = new DateOnly(2025, 6, 19),
+                            DueDate = new DateOnly(9999, 12, 31),
                             IdDoctor = 1,
                             IdPatient = 2
                         });

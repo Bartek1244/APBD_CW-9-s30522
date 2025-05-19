@@ -4,6 +4,7 @@ using APBD_CW_9_s30522.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace APBD_CW_9_s30522.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250519170231_change datetime to dateonly")]
+    partial class changedatetimetodateonly
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -49,15 +52,6 @@ namespace APBD_CW_9_s30522.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Doctors");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Email = "Kacperowski120@email.emailowo",
-                            FirstName = "Kacper",
-                            LastName = "Kacperowski"
-                        });
                 });
 
             modelBuilder.Entity("APBD_CW_9_s30522.Models.Medicament", b =>
@@ -87,22 +81,6 @@ namespace APBD_CW_9_s30522.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Medicaments");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Description = "Pyszne",
-                            Name = "Piwo",
-                            Type = "Napoj"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Description = "Też niezle",
-                            Name = "Ziola Lecznicze",
-                            Type = "Do Palenia"
-                        });
                 });
 
             modelBuilder.Entity("APBD_CW_9_s30522.Models.Patient", b =>
@@ -130,22 +108,6 @@ namespace APBD_CW_9_s30522.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Patients");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Birthdate = new DateTime(1999, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            FirstName = "Adam",
-                            LastName = "Psikutas"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Birthdate = new DateTime(1999, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            FirstName = "Andrzej",
-                            LastName = "Andrzejewski"
-                        });
                 });
 
             modelBuilder.Entity("APBD_CW_9_s30522.Models.Prescription", b =>
@@ -176,32 +138,6 @@ namespace APBD_CW_9_s30522.Migrations
                     b.HasIndex("IdPatient");
 
                     b.ToTable("Prescriptions");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Date = new DateOnly(2025, 5, 19),
-                            DueDate = new DateOnly(2025, 6, 19),
-                            IdDoctor = 1,
-                            IdPatient = 1
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Date = new DateOnly(2025, 5, 19),
-                            DueDate = new DateOnly(2025, 6, 19),
-                            IdDoctor = 1,
-                            IdPatient = 1
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Date = new DateOnly(2025, 5, 19),
-                            DueDate = new DateOnly(2025, 6, 19),
-                            IdDoctor = 1,
-                            IdPatient = 2
-                        });
                 });
 
             modelBuilder.Entity("APBD_CW_9_s30522.Models.PrescriptionMedicament", b =>
@@ -225,29 +161,6 @@ namespace APBD_CW_9_s30522.Migrations
                     b.HasIndex("IdPrescription");
 
                     b.ToTable("Prescription_Medicament");
-
-                    b.HasData(
-                        new
-                        {
-                            IdMedicament = 1,
-                            IdPrescription = 1,
-                            Details = "Dużo",
-                            Dose = 10
-                        },
-                        new
-                        {
-                            IdMedicament = 1,
-                            IdPrescription = 2,
-                            Details = "Okej",
-                            Dose = 1
-                        },
-                        new
-                        {
-                            IdMedicament = 1,
-                            IdPrescription = 3,
-                            Details = "Lecimy",
-                            Dose = 5
-                        });
                 });
 
             modelBuilder.Entity("APBD_CW_9_s30522.Models.Prescription", b =>
