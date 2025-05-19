@@ -9,6 +9,7 @@ namespace APBD_CW_9_s30522.Services;
 public interface IDbService
 {
     public Task<int> CreatePrescriptionAsync(PrescriptionCreateDto prescription);
+    public Task<ICollection<PatientWithDetailsGetDto>> GetPatientsWithDetailsAsync();
 }
 
 public class DbService(AppDbContext data) : IDbService
@@ -38,6 +39,13 @@ public class DbService(AppDbContext data) : IDbService
             {
                 throw new NotFoundException($"Medicament of id {medicament.IdMedicament} does not exist");
             }
+
+            if (prescription.Medicaments.Count(med => med.IdMedicament == medicament.IdMedicament) > 1)
+            {
+                throw new DataMissMatchException(
+                    $"Medicament of id {medicament.IdMedicament} assigned multiple times to one prescription");
+            }
+            
         }
         
         var transaction = await data.Database.BeginTransactionAsync();
@@ -106,5 +114,37 @@ public class DbService(AppDbContext data) : IDbService
             await transaction.RollbackAsync();
             throw;
         }
+    }
+
+    public async Task<ICollection<PatientWithDetailsGetDto>> GetPatientsWithDetailsAsync()
+    {
+        return await data.Patients.Select(pat => new PatientWithDetailsGetDto
+        {
+            IdPatient = pat.Id,
+            FirstName = pat.FirstName,
+            LastName = pat.LastName,
+            Birthdate = pat.Birthdate,
+            Prescriptions = pat.Prescriptions.Select(pre => new PrescriptionDetailsGetDto
+            {
+               IdPrescription = pre.Id,
+               Date = pre.Date,
+               DueDate = pre.DueDate,
+               Doctor = new DoctorGetDto
+               {
+                   IdDoctor = pre.IdDoctor,
+                   FirstName = pre.Doctor.FirstName,
+                   LastName = pre.Doctor.LastName,
+                   Email = pre.Doctor.Email
+               },
+               Medicaments = pre.PrescriptionMedicaments.Select(preMed => new MedicamentGetDto
+               {
+                   IdMedicament = preMed.IdMedicament,
+                   Name = preMed.Medicament.Name,
+                   Description = preMed.Medicament.Description,
+                   Dose = preMed.Dose,
+                   Details = preMed.Details
+               }).ToList()
+            }).OrderBy(pre => pre.DueDate).ToList()
+        }).ToListAsync();
     }
 }

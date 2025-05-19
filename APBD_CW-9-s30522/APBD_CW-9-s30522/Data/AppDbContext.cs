@@ -27,7 +27,7 @@ public class AppDbContext : DbContext
             {
                 Id = 1,
                 FirstName = "Adam",
-                LastName = "Psikutas",
+                LastName = "Psiogon",
                 Birthdate = DateTime.Parse("01/01/1999 00:00:00 AM"),
             },
             new()
