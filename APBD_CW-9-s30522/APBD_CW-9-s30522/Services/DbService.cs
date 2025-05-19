@@ -142,7 +142,8 @@ public class DbService(AppDbContext data) : IDbService
                    Name = preMed.Medicament.Name,
                    Description = preMed.Medicament.Description,
                    Dose = preMed.Dose,
-                   Details = preMed.Details
+                   Details = preMed.Details,
+                   Type = preMed.Medicament.Type
                }).ToList()
             }).OrderBy(pre => pre.DueDate).ToList()
         }).ToListAsync();
